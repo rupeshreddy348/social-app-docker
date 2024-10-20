@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Videos - Sai's Social Media Platform</title>
+    <title>Videos</title>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 class="title">Latest Videos</h1>
-        </header>
+        <h1 class="title">Watch and Publish Videos</h1>
         <main>
-            <video controls width="100%">
-                <source src="DevOps - What is the Fastest Way To Learn _.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="video" accept="video/*" required>
+                <button type="submit">Upload Video</button>
+            </form>
+
+            <!-- Play the sample video -->
+            <div class="video-section">
+                <h2>Featured Video</h2>
+                <video width="600" controls>
+                    <source src="DevOps - What is the Fastest Way To Learn _.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </main>
     </div>
 </body>
