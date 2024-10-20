@@ -1,11 +1,12 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 const port = 3000;
 
-// Use environment variables for DB connection
+// MySQL connection (using environment variables or default values)
 const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
@@ -28,16 +29,17 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile(__dirname + '/public/signup.html');
+    res.sendFile(path.join(__dirname, 'public', 'signup.html'));
 });
 
 app.post('/user/signup', (req, res) => {
     const { username, password } = req.body;
-    db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+    const sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
+    db.query(sql, [username, password], (err) => {
         if (err) {
             console.error('Error signing up:', err);
             return res.status(500).send('Error signing up.');
@@ -48,13 +50,14 @@ app.post('/user/signup', (req, res) => {
 
 app.post('/user/login', (req, res) => {
     const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, results) => {
+    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    db.query(sql, [username, password], (err, results) => {
         if (err) {
             console.error('Error logging in:', err);
             return res.status(500).send('Error logging in.');
         }
         if (results.length > 0) {
-            res.sendFile(__dirname + '/public/home.html'); // Serve the home page after successful login
+            res.sendFile(path.join(__dirname, 'public', 'home.html')); // Serve home page after successful login
         } else {
             res.status(401).send('Invalid credentials');
         }
@@ -65,4 +68,3 @@ app.post('/user/login', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
-
