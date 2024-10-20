@@ -3,149 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Welcome to Sai's Social Media Platform</title>
-    <link rel="stylesheet" href="/css/style.css"> <!-- Link to your main CSS -->
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: #ffffff; 
-            background-image: url('abstract-1264071_1920.png'); /* Updated background image */
-            background-size: cover;
-            background-position: center;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 20px;
-        }
-
-        section {
-            flex-basis: 45%; /* Adjusting layout for each section */
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .content {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .social-icons {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .social-icons a {
-            margin: 0 10px;
-            color: #ffffff;
-            font-size: 30px;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #ff6347;
-        }
-
-        .video-section video {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Sai's Social Media Platform</h1>
-    </header>
-
-    <main class="content">
-        <!-- News Feed Section -->
-        <section class="news-feed">
-            <h2>News Feed</h2>
-            <p>Here you will see daily updates from users.</p>
-            <!-- News feed content will go here -->
-        </section>
-
-        <!-- Video Section -->
-        <section class="video-section">
-            <h2>Videos</h2>
-            <p>Explore the latest videos shared by the community.</p>
-            <video controls>
-                <source src="DevOps_Fastest_Way_To_Learn.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
-
-        <!-- Notifications Section -->
-        <section class="notifications">
-            <h2>Notifications</h2>
-            <p>Stay updated with your recent notifications.</p>
-            <!-- Notification content will go here -->
-        </section>
-
-        <!-- Profile Section (About Me) -->
-        <section class="profile">
-            <h2>About Me</h2>
-            <p>Hi, I'm Sai, a DevOps engineer at Milvik Technologies. Here's more about me...</p>
+    <div class="container">
+        <header>
+            <h1 class="title">Welcome to Sai's Social Media Platform</h1>
+        </header>
+        <nav>
             <ul>
-                <li>Automated server provisioning</li>
-                <li>Configuration management</li>
-                <li>CI/CD practices</li>
-                <li>Cloud resource management</li>
+                <li><a href="news.html">Newsfeed</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="videos.html">Videos</a></li>
             </ul>
-        </section>
-
-        <!-- Services Section -->
-        <section class="services">
-            <h2>Services</h2>
-            <p>Discover the services offered on this platform.</p>
-            <!-- List of services -->
-            <ul>
-                <li>DevOps Consulting</li>
-                <li>Cloud Solutions</li>
-                <li>Infrastructure as Code (IaC)</li>
-            </ul>
-        </section>
-    </main>
-
-    <!-- Social media icons -->
-    <div class="social-icons">
-        <h2>Connect with me on social media</h2>
-        <a href="https://www.facebook.com/your-profile" target="_blank" aria-label="Facebook">
-            <i class="fab fa-facebook"></i>
-        </a>
-        <a href="https://www.twitter.com/your-profile" target="_blank" aria-label="Twitter">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/your-profile" target="_blank" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/your-profile" target="_blank" aria-label="GitHub">
-            <i class="fab fa-github"></i>
-        </a>
+        </nav>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Sai's Social Media Platform</p>
-    </footer>
 </body>
 </html>
