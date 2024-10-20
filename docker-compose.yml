@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # MySQL service
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: MySecureP@ss1
+      MYSQL_DATABASE: social_app
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - my-network
+
+  # Node.js service
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: MySecureP@ss1
+      DB_NAME: social_app
+    depends_on:
+      - db
+    networks:
+      - my-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  db_data:
+
+networks:
+  my-network:
+
