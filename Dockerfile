@@ -1,19 +1,19 @@
-# Base image
+# Use Node.js 14 as base image
 FROM node:14
 
-# Create app directory
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
+# Copy package.json and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application
 COPY . .
 
-# Expose the port
+# Expose the port the app runs on
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["node", "app.js"]
 
