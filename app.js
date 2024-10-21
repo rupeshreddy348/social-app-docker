@@ -1,103 +1,54 @@
 const express = require('express');
-const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const multer = require('multer');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
 
-// MySQL database connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'MySecureP@ss1',
-    database: 'social_app'
-});
-
-// Connect to the database
-db.connect((err) => {
-    if (err) {
-        console.error('Database connection failed:', err.stack);
-        return;
-    }
-    console.log('Connected to the database.');
-});
-
-// Middleware
+// Middleware to parse incoming requests
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the public directory
 app.use(express.static('public'));
 
-// File upload setup using multer
-const upload = multer({ dest: 'uploads/' });
-
 // Routes
+
+// Serve the login page from the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+// Serve the login page from the '/login' route
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Serve the signup page
 app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'signup.html'));
 });
 
+// Handle user signup
 app.post('/user/signup', (req, res) => {
     const { username, password } = req.body;
-    const sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
-    db.query(sql, [username, password], (err) => {
-        if (err) {
-            console.error('Error signing up:', err);
-            return res.status(500).send('Error signing up.');
-        }
-        res.redirect('/');
-    });
+    console.log(`User signed up with username: ${username}`);
+    res.redirect('/');
 });
 
+// Handle user login
 app.post('/user/login', (req, res) => {
     const { username, password } = req.body;
-    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    db.query(sql, [username, password], (err, results) => {
-        if (err) {
-            console.error('Error logging in:', err);
-            return res.status(500).send('Error logging in.');
-        }
-        if (results.length > 0) {
-            res.redirect('/home');
-        } else {
-            res.status(401).send('Invalid credentials');
-        }
-    });
+    console.log(`User logged in with username: ${username}`);
+    res.redirect('/home');  // Redirect to home after login
 });
 
-// Serve pages for services
+// Serve the home page (dashboard)
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-app.get('/news', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'news.html'));
-});
-
-app.get('/notifications', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'notifications.html'));
-});
-
-app.get('/videos', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'videos.html'));
-});
-
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-
-// Handle video uploads
-app.post('/upload', upload.single('video'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
-    }
-    res.redirect('/videos');
-});
-
 // Start the server
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
+
