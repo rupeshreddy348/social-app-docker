@@ -1,7 +1,7 @@
 name: Deploy to Local Ubuntu
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # Enables manual triggering
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd /path/to/your/project
+            cd /home/saiprasad/path/to/your/project
             git pull origin main
             sudo docker-compose down
             sudo docker-compose up --build -d
