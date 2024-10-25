@@ -24,11 +24,23 @@ jobs:
             fi
           EOF
 
-      - name: Pull Latest Changes and Deploy
+      - name: Pull Latest Changes
         run: |
           ssh -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /home/ubuntu/social-app-docker
             git pull origin main
+          EOF
+
+      - name: Stop Docker Containers
+        run: |
+          ssh -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /home/ubuntu/social-app-docker
             sudo docker-compose down
+          EOF
+
+      - name: Start Docker Containers
+        run: |
+          ssh -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /home/ubuntu/social-app-docker
             sudo docker-compose up --build -d
           EOF
