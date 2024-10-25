@@ -18,14 +18,11 @@ jobs:
 
       - name: Test SSH Connection
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "echo Connection Successful"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "echo Connection Successful"
 
       - name: Deploy via SSH
         if: success()
         run: |
-          ssh -i ~/.ssh/id_ed25519 -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /home/ubuntu/social-app-docker
-            git pull origin main
-            sudo docker-compose down
-            sudo docker-compose up --build -d
-          EOF
+            
