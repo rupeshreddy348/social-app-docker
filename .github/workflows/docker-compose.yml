@@ -16,12 +16,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Test SSH Connection
+      - name: Clone Repository if Not Present
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "echo Connection Successful"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            if [ ! -d "/home/ubuntu/social-app-docker" ]; then
+              git clone https://github.com/saiprasadr870/social-app-docker.git /home/ubuntu/social-app-docker
+            fi
+          EOF
 
-      - name: Deploy via SSH
-        if: success()
+      - name: Pull Latest Changes and Deploy
         run: |
           ssh -tt -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /home/ubuntu/social-app-docker
